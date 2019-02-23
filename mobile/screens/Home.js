@@ -1,33 +1,43 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native';
-import { Container, Content, Card, CardItem, Image } from 'native-base'
+import { View, Text, StyleSheet, Image, ScrollView, TouchableHighlight } from 'react-native';
+import { Container, Content, Card, CardItem } from 'native-base'
 import { Constants } from 'expo'
 import { connect } from 'react-redux'
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export class HomeScreen extends Component {
 
   render() {
     return (
-      <Container>
+      <Container >
         <View style={styles.statusBar} />
-        <Content style={{ margin: 5 }}>
-          <View>
+        <Content >
+          <View style={{ backgroundColor: '#f75611', borderRadius: 30, height: 250, marginTop: -15 }}>
+            <View style={{margin: 30, marginTop: 50}}>
+              <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>What's good in</Text>
+              <Text style={{ fontSize: 40, fontWeight: 'bold', color: 'white' }}>Indonesia</Text>
+            </View>
+          </View>
+          <View style={{ marginLeft: 20, marginRight: 20, marginTop: -100, backgroundColor: 'white', borderRadius: 10 }}>
+            <Image source={{ uri: 'https://static.vecteezy.com/system/resources/previews/000/202/201/non_2x/graduation-template-design-vector.jpg' }} style={{ width: '100%', height: 300, borderRadius: 15 }} />
+            <View style={{ justifyContent: "center", alignItems: "center", marginBottom: 50 }}>
+              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Graduation Day</Text>
+              <Text><Icon name="calendar" size={15} /> March 1st 2019</Text>
+              <Text><Icon name="map-marker" size={15}/> Hacktiv8 Indonesia, Jakarta Selatan</Text>
+            </View>
             {
-              this.props.events.map(e => {
+              this.props.events.map((e, i) => {
                 return (
-                  <Card>
-                    <CardItem>
-                      <Image source={require(e.imageUrl)} />
-                      <View style={{flexDirection: "column"}}>
-                        <Text>{e.name}</Text>
-                        <Text>{e.data}</Text>
-                        <Text>{e.place}</Text>
-                        {/* <Right>
-                          <Icon name="arrow-forward" />
-                        </Right> */}
+                  <TouchableHighlight key={i} onPress={() => this.props.navigation.navigate('Detail', { data: e })}>
+                    <View style={{ marginTop: 15, marginBottom: 15, flexDirection: "row" }}>
+                      <Image source={{ uri: e.imageUrl }} style={{ width: 100, height: 100 }} />
+                      <View style={{ flexDirection: "column", marginLeft: 10, alignItems: 'flex-start' }} >
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{e.name}</Text>
+                        <Text><Icon name="calendar" size={15} /> {new Date(e.date).toLocaleDateString()}</Text>
+                        <Text><Icon name="map-marker" size={15} /> {e.place}</Text>
                       </View>
-                    </CardItem>
-                  </Card>
+                    </View>
+                  </TouchableHighlight>
                 )
               })
             }

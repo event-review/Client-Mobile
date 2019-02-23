@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { createBottomTabNavigator } from 'react-navigation'
 import Home from '../screens/Home'
+import StackHome from '../navigators/StackHome'
 import Logout from '../screens/Logout'
 
 const bottomNav = createBottomTabNavigator({
   Home: {
-    screen: Home,
+    screen: StackHome,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
         <Icon name="home" size={25}/>

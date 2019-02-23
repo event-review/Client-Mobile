@@ -3,26 +3,37 @@ const defaultState = {
     {
       name: 'Komik Expo 2019',
       place: 'Bandung',
-      date: '04-04-1996',
+      date: '04-04-2019',
       users: [{ name: 'Amir' }, { name: 'Toni' }, { name: 'AnTOni' }],
       userAttend: [{ name: 'Amir' }, { name: 'Toni' }],
       status: 'Coming Soon',
       price: 10000,
-      promotor: { name: "Fathoni" },
-      imageUrl: 'https://i.pinimg.com/originals/e3/e3/11/e3e311f1f7a665f8b3877dcfa598cc90.png'
+      promotor: { name: "Promotor 1" },
+      imageUrl: 'https://japanesestation.com/wp-content/uploads/2017/10/comiccon-f-768x500.jpg'
     },
-
     {
       name: 'Hackathon',
-      place: 'Bandung',
-      date: '04-04-1996',
+      place: 'Surabaya',
+      date: '04-04-2019',
       users: [{ name: 'Amir' }, { name: 'Toni' }, { name: 'AnTOni' }],
       userAttend: [{ name: 'Amir' }, { name: 'Toni' }],
       status: 'Coming Soon',
       price: 100000,
-      promotor: { name: "Fathoni" },
+      promotor: { name: "Promotor 1" },
+      imageUrl: 'http://empi.ac.in/empi/uploads/images/NewsSection/HEALTH_HACKATHON.jpeg'
+    },
+    {
+      name: 'Hackathon',
+      place: 'Bandung',
+      date: '04-04-2019',
+      users: [{ name: 'Amir' }, { name: 'Toni' }, { name: 'AnTOni' }],
+      userAttend: [{ name: 'Amir' }, { name: 'Toni' }],
+      status: 'Coming Soon',
+      price: 100000,
+      promotor: { name: "Promotor 1" },
       imageUrl: 'https://i.pinimg.com/originals/e3/e3/11/e3e311f1f7a665f8b3877dcfa598cc90.png'
-    }
+    },
+    
   ]
 }
 

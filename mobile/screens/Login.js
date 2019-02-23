@@ -15,7 +15,7 @@ export class LoginScreen extends Component {
   }
 
   state = {
-    register: true,
+    isRegister: false,
     chosenDate: new Date(),
     selected2: undefined
   }
@@ -48,64 +48,89 @@ export class LoginScreen extends Component {
               <Label>Password</Label>
               <Input />
             </Item>
-            <View style={{ marginTop: 10 }}>
-              <DatePicker
-                defaultDate={new Date(2019, 1, 1)}
-                minimumDate={new Date(2019, 1, 20)}
-                maximumDate={new Date(2021, 12, 31)}
-                locale={"id"}
-                timeZoneOffsetInMinutes={undefined}
-                modalTransparent={false}
-                animationType={"fade"}
-                androidMode={"default"}
-                placeHolderText="Select date"
-                textStyle={{ color: "black" }}
-                placeHolderTextStyle={{ color: "black" }}
-                onDateChange={this.setDate}
-                disabled={false}
-              />
-            </View>
-            <HTML html={'<hr>'} />
-            <Item stackedLabel last>
-              <Label>Gender</Label>
-              <Item picker>
-                <Picker
-                  mode="dropdown"
-                  iosIcon={<Icon name="arrow-down" />}
-                  style={{ width: undefined }}
-                  placeholder="Select your SIM"
-                  placeholderStyle={{ color: "#bfc6ea" }}
-                  placeholderIconColor="#007aff"
-                  selectedValue={this.state.selected2}
-                  onValueChange={this.onValueChange2.bind(this)}
-                >
-                  <Picker.Item label="Male" value="Male" />
-                  <Picker.Item label="Female" value="Female" />
-                </Picker>
-              </Item>
-            </Item>
-            <Button
-              onPress={() => alert('aaa')}
-              title="Select Photo"
-              color="#841584"
-            />
-          </Form>
-          <View style={{margin: 15}}>
-            <Button
-              onPress={() => alert('aaa')}
-              title="Register"
-              color="#841584"
-            />
-          </View>
-          <View style={{ margin: 10, justifyContent: "center", alignItems: "center" }}>
-            <Text>Have an Account? Login Here...</Text>
-            <Button
-              onPress={() => alert('aaa')}
-              title="Login"
-              color="#841584"
-            />
-          </View>
 
+            {(this.state.isRegister) &&
+              <View>
+                <View style={{ marginTop: 10 }}>
+                  <DatePicker
+                    defaultDate={new Date(2019, 1, 1)}
+                    minimumDate={new Date(2019, 1, 20)}
+                    maximumDate={new Date(2021, 12, 31)}
+                    locale={"id"}
+                    timeZoneOffsetInMinutes={undefined}
+                    modalTransparent={false}
+                    animationType={"fade"}
+                    androidMode={"default"}
+                    placeHolderText="Select date"
+                    textStyle={{ color: "black" }}
+                    placeHolderTextStyle={{ color: "black" }}
+                    onDateChange={this.setDate}
+                    disabled={false}
+                  />
+                </View>
+                <HTML html={'<hr>'} />
+                <Item stackedLabel last>
+                  <Label>Gender</Label>
+                  <Item picker>
+                    <Picker
+                      mode="dropdown"
+                      iosIcon={<Icon name="arrow-down" />}
+                      style={{ width: undefined }}
+                      placeholder="Select your SIM"
+                      placeholderStyle={{ color: "#bfc6ea" }}
+                      placeholderIconColor="#007aff"
+                      selectedValue={this.state.selected2}
+                      onValueChange={this.onValueChange2.bind(this)}
+                    >
+                      <Picker.Item label="Male" value="Male" />
+                      <Picker.Item label="Female" value="Female" />
+                    </Picker>
+                  </Item>
+                </Item>
+                <Button
+                  onPress={() => alert('aaa')}
+                  title="Select Photo"
+                  color="#841584"
+                />
+              </View>
+            }
+
+          </Form>
+          <View style={{ margin: 15 }}>
+            {(this.state.isRegister == true) ?
+              <Button
+                onPress={() => alert('aaa')}
+                title="Register"
+                color="#841584"
+              />
+              : <Button
+                onPress={() => alert('aaa')}
+                title="Login"
+                color="#841584"
+              />
+            }
+          </View>
+          {
+            (this.state.isRegister == true) ? (
+              <View style={{ margin: 10, marginTop: 30, justifyContent: "center", alignItems: "center" }}>
+                <Text>Have an Account? Login Here...</Text>
+                <Button
+                  onPress={() => this.setState({isRegister: false})}
+                  title="Login"
+                  color="#841584"
+                />
+              </View>
+            ) : (
+                <View style={{ margin: 10, marginTop: 30, justifyContent: "center", alignItems: "center" }}>
+                  <Text>Don't Have an Account? Register Here...</Text>
+                  <Button
+                    onPress={() => this.setState({isRegister: true})}
+                    title="Register"
+                    color="#841584"
+                  />
+                </View>
+              )
+          }
         </Content>
       </Container>
     )

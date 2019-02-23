@@ -5,7 +5,12 @@ import { Constants } from 'expo'
 import { connect } from 'react-redux'
 import Icon from "react-native-vector-icons/FontAwesome";
 
+import { getAllEventAction } from '../actions/event';
+
 export class HomeScreen extends Component {
+  componentDidMount(){
+    this.props.getAllEvent()
+  }
 
   render() {
     return (
@@ -54,6 +59,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  getAllEvent: () => dispatch(getAllEventAction())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)

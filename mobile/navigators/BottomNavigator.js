@@ -3,6 +3,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { createBottomTabNavigator } from 'react-navigation'
 import Home from '../screens/Home'
 import StackHome from '../navigators/StackHome'
+import Search from '../screens/Search'
+import Profile from '../screens/Profile'
 import Logout from '../screens/Logout'
 
 const bottomNav = createBottomTabNavigator({
@@ -15,7 +17,7 @@ const bottomNav = createBottomTabNavigator({
     },
   },
   Search: {
-    screen: Logout,
+    screen: Search,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
         <Icon name="search" size={25}/>
@@ -23,7 +25,7 @@ const bottomNav = createBottomTabNavigator({
     },
   },
   Profile: {
-    screen: Logout,
+    screen: Profile,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
         <Icon name="ellipsis-v" size={25}/>

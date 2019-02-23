@@ -41,7 +41,11 @@ const defaultState = {
 export default function (state = defaultState, action) {
   const { type, payload } = action
   switch (type) {
-    case 'loading':
+    case 'getAllEventReducer':
+    return ({
+      ...state,
+      events: payload
+    })
     default:
       return state
   }

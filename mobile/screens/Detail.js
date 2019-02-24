@@ -6,13 +6,17 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import HTML from 'react-native-render-html'
 
 export default class Detail extends Component {
+  componentDidMount(){
+    console.log(this.props.navigation.state.params.data)
+  }
+
   join = () => {
     console.log('join event')
     alert('join event')
   }
 
   render() {
-    let { name, date, place, price, status, imageUrl, promotor } = this.props.navigation.state.params.data
+    let { name, date, place, price, status, imageUrl, promotorId } = this.props.navigation.state.params.data
 
     return (
       <Container>
@@ -27,7 +31,7 @@ export default class Detail extends Component {
                 <HTML html={'<hr>'} />
                 <View style={styles.titlePoster}>
                   <Text style={{ fontSize: 30, fontWeight: 'bold' }}>{name}</Text>
-                  <Text>by {promotor.name}</Text>
+                  <Text>by {promotorId.name}</Text>
                 </View>
                 <View style={styles.description}>
                   <Icon name="calendar" size={25} style={styles.icon} />
@@ -60,7 +64,7 @@ export default class Detail extends Component {
           />
           <HTML html={'<hr>'} />
           <Text style={styles.title}>Organizer</Text>
-          <Text>{promotor.name}</Text>
+          <Text>{promotorId.name}</Text>
           <HTML html={'<br><hr>'} />
           <Button style={{ backgroundColor: "#f75611", width: '100%', justifyContent: 'center' }} onPress={() => this.join()}>
             <Text>Join Event</Text>

@@ -1,5 +1,3 @@
-import store from "../store";
-
 const defaultState = {
   user: {
     name: 'Anhar',
@@ -27,7 +25,7 @@ export default function (state = defaultState, action) {
     case 'joinEventReducer':
       return ({
         ...state,
-        myEvent: state.myEvent.concat([payload])
+        myEvent: payload
       })
     default:
       return state

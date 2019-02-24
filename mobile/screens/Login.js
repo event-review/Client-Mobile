@@ -38,7 +38,7 @@ export class LoginScreen extends Component {
     if (status) {
       const result = await ImagePicker.launchImageLibraryAsync(options);
       if (!result.cancelled) {
-        this.setState({image: result.uri, modalVisible: false})
+        this.setState({ image: result.uri, modalVisible: false })
         // this.props.navigation.navigate('Login', { image: result.uri});
       }
     }
@@ -49,14 +49,14 @@ export class LoginScreen extends Component {
     if (status) {
       const result = await ImagePicker.launchCameraAsync(options);
       if (!result.cancelled) {
-        this.setState({image: result.uri, modalVisible: false})
+        this.setState({ image: result.uri, modalVisible: false })
         // this.props.navigation.navigate('Login', { image: result.uri });
       }
     }
   };
 
   _onClickButtonRegister = async (imageURI) => {
-    try{
+    try {
       // Ini function Upload ke firebase , output image URL
       console.log(imageURI)
       const profileURL = await Fire.shared.CreatePhoto(imageURI)
@@ -90,17 +90,17 @@ export class LoginScreen extends Component {
             transparent={true}
             animationType="fade"
             visible={this.state.modalVisible}
-            onRequestClose={() => this.setState({modalVisible: false})}>
-            <View style={{ backgroundColor: 'rgba(240,240,240,0.8)', width: Dimensions.get('window').width, height: Dimensions.get('window').height}}>
+            onRequestClose={() => this.setState({ modalVisible: false })}>
+            <View style={{ backgroundColor: 'rgba(240,240,240,0.8)', width: Dimensions.get('window').width, height: Dimensions.get('window').height }}>
               <View style={styles.container}>
-                <View style={{marginBottom: 20}}>
+                <View style={{ marginBottom: 20 }}>
                   <Button
                     onPress={() => this._takePhoto()}
                     title="Take From Camera"
                     color="#841584"
                   />
                 </View>
-                <View style={{marginBottom: 20}}>
+                <View style={{ marginBottom: 20 }}>
                   <Button
                     onPress={() => this._selectPhoto()}
                     title="Select From Gallery"
@@ -165,16 +165,16 @@ export class LoginScreen extends Component {
                       </Picker>
                     </Item>
                   </Item>
-                  { image &&
-                    <View style={{...styles.container, margin: 20}}>
+                  {image &&
+                    <View style={{ ...styles.container, margin: 20 }}>
                       <Image
-                      source={{ uri: image }}
-                      style={{ resizeMode: 'contain', aspectRatio: 1, width: 200 }}
+                        source={{ uri: image }}
+                        style={{ resizeMode: 'contain', aspectRatio: 1, width: 200 }}
                       />
                     </View>
                   }
                   <Button
-                    onPress={() => this.setState({modalVisible: true})}
+                    onPress={() => this.setState({ modalVisible: true })}
                     title="Select Photo"
                     color="#841584"
                   />
@@ -201,7 +201,7 @@ export class LoginScreen extends Component {
                 <View style={{ margin: 10, marginTop: 30, justifyContent: "center", alignItems: "center" }}>
                   <Text>Have an Account? Login Here...</Text>
                   <Button
-                    onPress={() => this.setState({isRegister: false})}
+                    onPress={() => this.setState({ isRegister: false })}
                     title="Login"
                     color="#841584"
                   />
@@ -210,7 +210,7 @@ export class LoginScreen extends Component {
                   <View style={{ margin: 10, marginTop: 30, justifyContent: "center", alignItems: "center" }}>
                     <Text>Don't Have an Account? Register Here...</Text>
                     <Button
-                      onPress={() => this.setState({isRegister: true})}
+                      onPress={() => this.setState({ isRegister: true })}
                       title="Register"
                       color="#841584"
                     />

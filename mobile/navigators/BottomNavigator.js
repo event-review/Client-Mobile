@@ -35,7 +35,7 @@ const bottomNav = createBottomTabNavigator({
     },
   },
   Profile: {
-    screen: Profile,
+    screen: StackProfile,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
         <Icon name="ellipsis-v" size={25}/>

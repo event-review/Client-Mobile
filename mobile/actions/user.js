@@ -1,7 +1,7 @@
 import api from './api'
 
-export async function getDataUser(token) {
-  return dispatch => {
+export function getDataUser(token) {
+  return async dispatch => {
     try {
       const { data } = await api.get('/users', { header: token })
       dispatch({ type: 'getDataUserReducer', payload: data.user })
@@ -11,8 +11,8 @@ export async function getDataUser(token) {
   }
 }
 
-export async function getMyEventAction() {
-  return dispatch => {
+export function getMyEventAction() {
+  return async dispatch => {
     try {
       const { data } = await api.get('/users/myevent')
       dispatch({ type: 'getMyEventReducer', payload: data.events })
@@ -22,8 +22,8 @@ export async function getMyEventAction() {
   }
 }
 
-export async function joinEventAction(eventId) {
-  return dispatch => {
+export function joinEventAction(eventId) {
+  return async dispatch => {
     try {
       const { data } = await api.put('/users/join' + eventId)
       // console.log(data.message)
@@ -34,19 +34,43 @@ export async function joinEventAction(eventId) {
   }
 }
 
-export async function loginAction() {
-  return dispatch => {
+export function registerAction(user) {
+  console.log('register',user)
+  return async dispatch => {
     try {
-
+      const {data} = await api({
+        method: 'post',
+        url: '/users/signup',
+        data: user,
+      })
+      console.log(data)
+      dispatch({type: 'registerReducer'})
     } catch (error) {
       console.log(error.response)
     }
   }
 }
 
-export async function logout() {
-  try {
+export function loginAction(user) {
+  return async dispatch => {
+    console.log('login',user)
+    try {
+      const {data} = await api({
+        method: 'post',
+        url: '/users/signin',
+        data: user
+      })
+      console.log(data)
+      dispatch({type: 'loginReducer'})
+    } catch (error) {
+      console.log(error.response)
+    }
+  }
+}
 
+export async function logoutAction() {
+  try {
+    dispatch({type: 'logoutReducer'})
   } catch (error) {
     console.log(error.response)
   }

@@ -10,6 +10,9 @@ export default function(state=defaultState, action){
   const { type, payload } = action
   switch (type) {
     case 'loading':
+      return ({
+        ...state
+      })
     default:
       return state
   }

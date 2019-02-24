@@ -1,5 +1,3 @@
-import store from "../store";
-
 const defaultState = {
   user: {
     name: 'Anhar',
@@ -7,7 +5,8 @@ const defaultState = {
     dob: '28-03-1996',
     gender: 'Male'
   },
-  myEvent: [{name: '', data: '', place: ''}]
+  myEvent: [{name: '', data: '', place: ''}],
+  isLogin: true
 }
 
 
@@ -27,7 +26,21 @@ export default function (state = defaultState, action) {
     case 'joinEventReducer':
       return ({
         ...state,
-        myEvent: state.myEvent.concat([payload])
+        myEvent: payload
+      })
+    case 'loginReducer':
+      return ({
+        ...state,
+        isLogin: true
+      })
+    case 'registerReducer':
+      return ({
+        ...state,
+      })
+    case 'logoutReducer':
+      return ({
+        ...state,
+        isLogin: false
       })
     default:
       return state

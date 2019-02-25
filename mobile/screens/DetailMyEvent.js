@@ -12,7 +12,7 @@ export default class Detail extends Component {
   state = {
     modalVisibleMessage: false,
     message: '',
-    text: `http://localhost:3000/users/attend/${this.props.navigation.state.params.userId}/${this.props.navigation.state.params.data._id}`
+    text: `http://localhost:3000/events/attend/${this.props.navigation.state.params.userId}/${this.props.navigation.state.params.data._id}`
     // text: `https://www.facebook.com`
   }
 

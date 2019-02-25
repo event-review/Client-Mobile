@@ -55,7 +55,7 @@ class Fire {
             return imageUri
 
         } catch ({ message }) {
-            Alert.alert("Error", `${message}`)
+            // Alert.alert("Error", `${message}`)
         }
     }
 }

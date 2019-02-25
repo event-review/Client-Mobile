@@ -1,4 +1,5 @@
 import api from './api'
+import axios from 'axios'
 
 export function getDataUser(token) {
   return async dispatch => {
@@ -46,27 +47,27 @@ export function registerAction(user) {
       console.log(data)
       dispatch({type: 'registerReducer'})
     } catch (error) {
-      console.log(error.response)
+      console.log(error.response.data)
     }
   }
 }
 
-export function loginAction(user) {
-  return async dispatch => {
-    console.log('login',user)
-    try {
-      const {data} = await api({
-        method: 'post',
-        url: '/users/signin',
-        data: user
-      })
-      console.log(data)
-      dispatch({type: 'loginReducer'})
-    } catch (error) {
-      console.log(error.response)
-    }
-  }
-}
+// export function loginAction(user) {
+//   return async dispatch => {
+//     console.log('login',user)
+//     try {
+//       const {data} = await api({
+//         method: 'post',
+//         url: '/users/signin',
+//         data: user
+//       })
+//       console.log('data login =',data)
+//       dispatch({type: 'loginReducer'})
+//     } catch (error) {
+//       console.log('error',error.response.data)
+//     }
+//   }
+// }
 
 export async function logoutAction() {
   try {

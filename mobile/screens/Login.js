@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Image, TouchableHighlight, ImageBackground, Button, Modal, Alert, Dimensions, ScrollView } from 'react-native'
+import { StyleSheet, AsyncStorage, Text, View, Image, TouchableHighlight, ImageBackground, Button, Modal, Alert, Dimensions, ScrollView } from 'react-native'
 import { Container, Header, Content, Form, Item, Input, Label, DatePicker, Picker } from 'native-base';
 import { connect } from "react-redux"
 
@@ -21,7 +21,7 @@ const options = {
 export class LoginScreen extends Component {
 
   componentDidMount() {
-    // console.log(this.props.navigation)
+    this.checkLogin()
   }
 
 
@@ -29,14 +29,22 @@ export class LoginScreen extends Component {
     name: '',
     email: '',
     password: '',
-    chosenDate: new Date(),
+    chosenDate: null,
     gender: undefined,
 
-    isRegister: false,
+    isRegister: true,
     modalVisible: false,
-    image: null
+    modalVisibleMessage: false,
+    image: null,
+
+    message: ''
   }
 
+
+  checkLogin = async () => {
+    const userToken = await AsyncStorage.getItem('token');
+    this.props.navigation.navigate(userToken ? 'App' : 'Login');
+  }
 
   _selectPhoto = async () => {
     const status = await getPermission(Permissions.CAMERA_ROLL);
@@ -63,25 +71,64 @@ export class LoginScreen extends Component {
   _onClickButtonRegister = async (imageURI) => {
     try {
       let { name, email, password, chosenDate, gender } = this.state
-      let user = { name, email, password, chosenDate, gender }
-      // Ini function Upload ke firebase , output image URL
+      let user = { name, email, password, dob: chosenDate, gender }
       const profileURL = await Fire.shared.CreatePhoto(imageURI)
-      // alert(`${profileURL}`)
-      this.props.register({...user, imageUrl: profileURL})
-    } catch (e) {
-      console.log(e)
-      Alert.alert('Register Failed', `${e.message}`)
+      let formData = new FormData()
+      formData.append('data', JSON.stringify({ ...user, imageUrl: profileURL }))
+
+      const { data } = await api({
+        method: 'post',
+        url: '/users/signup',
+        data: formData
+      })
+      this.setState({message: data.message}, () => {
+        this.setState({ modalVisibleMessage: true}, () => {
+          setTimeout(() => {
+            this.setState({ 
+              modalVisibleMessage: false,
+              message: '',
+              name: '',
+              email: '',
+              password: '',
+              chosenDate: null,
+              gender: undefined,
+            })
+          }, 2000)
+        })
+      })
+    } catch (error) {
+
+      this.setState({message: error.response.data.message}, () => {
+        this.setState({ modalVisibleMessage: true}, () => {
+          setTimeout(() => {
+            this.setState({ modalVisibleMessage: false, message: ''})
+          }, 1000)
+        })
+      })
     }
   }
 
-  _onClickButtonLogin = async () => {
+  onClickButtonLogin = async () => {
     try {
       let { email, password } = this.state
       let user = { email, password }
-      this.props.login({...user})
-    } catch (e) {
-      console.log(e)
-      Alert.alert('Login Failed', `${e.message}`)
+      // this.props.login(user)
+      const { data } = await api({
+        method: 'post',
+        url: '/users/signin',
+        data: user
+      })
+      // console.log(data.token)
+      await AsyncStorage.setItem('token', data.token)
+      this.props.navigation.navigate('App')
+    } catch (error) {
+      this.setState({message: error.response.data.message}, () => {
+        this.setState({ modalVisibleMessage: true}, () => {
+          setTimeout(() => {
+            this.setState({ modalVisibleMessage: false, message: ''})
+          }, 2000)
+        })
+      })
     }
   }
 
@@ -126,35 +173,49 @@ export class LoginScreen extends Component {
             </View>
           </Modal>
 
+          <Modal
+            animationType="slide"
+            transparent={true}
+            animationType="fade"
+            visible={this.state.modalVisibleMessage}
+            onRequestClose={() => this.setState({ modalVisibleMessage: false })}>
+            <View style={{ backgroundColor: 'rgba(240,240,240,0.8)', width: Dimensions.get('window').width, height: Dimensions.get('window').height }}>
+              <View style={{...styles.container, alignItems: "center", justifyContent: "center"}}>
+                <Text style={{fontSize: 20, fontWeight: 'bold'}}>{this.state.message}</Text>
+              </View>
+            </View>
+          </Modal>
+
           <View style={styles.statusBar} />
           <Content>
             <Form style={{ margin: 20 }}>
-              <Item stackedLabel>
+              {(this.state.isRegister) && <Item stackedLabel>
                 <Label>Name</Label>
-                <Input value={name} onChangeText={(text) => this.setState({name: text})}/>
+                <Input value={name} onChangeText={(text) => this.setState({ name: text })} />
               </Item>
+              }
               <Item stackedLabel last>
                 <Label>Email</Label>
-                <Input value={email} onChangeText={(text) => this.setState({email: text})}/>
+                <Input value={email} onChangeText={(text) => this.setState({ email: text })} />
               </Item>
               <Item stackedLabel last>
                 <Label>Password</Label>
-                <Input value={password} onChangeText={(text) => this.setState({password: text})}/>
+                <Input secureTextEntry={true} value={password} onChangeText={(text) => this.setState({ password: text })} />
               </Item>
 
               {(this.state.isRegister) &&
                 <View>
                   <View style={{ marginTop: 10 }}>
                     <DatePicker
-                      defaultDate={new Date(2019, 1, 1)}
-                      minimumDate={new Date(2019, 1, 20)}
+                      defaultDate={null}
+                      minimumDate={new Date(1945, 1, 1)}
                       maximumDate={new Date(2021, 12, 31)}
                       locale={"id"}
                       timeZoneOffsetInMinutes={undefined}
                       modalTransparent={false}
                       animationType={"fade"}
                       androidMode={"default"}
-                      placeHolderText="Select date"
+                      placeHolderText="Bithday"
                       textStyle={{ color: "black" }}
                       placeHolderTextStyle={{ color: "black" }}
                       onDateChange={this.setDate}
@@ -206,7 +267,7 @@ export class LoginScreen extends Component {
                   color="#841584"
                 />
                 : <Button
-                  onPress={() => this._onClickButtonLogin()}
+                  onPress={() => this.onClickButtonLogin()}
                   title="Login"
                   color="#841584"
                 />
@@ -241,12 +302,12 @@ export class LoginScreen extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  
+
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (data) => dispatch(loginAction(data)),
-  register: (data) => dispatch(registerAction(data))
+  login: () => dispatch({ type: 'loginReducer' }),
+  register: () => dispatch({ type: 'registerReducer' })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)

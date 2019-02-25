@@ -4,7 +4,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "dev": "adb reverse tcp:3000 tcp:3000 && expo start"
   },
   "dependencies": {
     "axios": "^0.18.0",

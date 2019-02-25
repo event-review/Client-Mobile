@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
+import { AsyncStorage, View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native';
 import { Container, Content, Card, CardItem, Input, Item, ListItem, Right, Left, Button, Body, Switch } from 'native-base'
 import { Constants } from 'expo'
 import { connect } from 'react-redux'
@@ -7,6 +7,13 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import HTML from 'react-native-render-html'
 
 export class Profile extends Component {
+
+  logout = async () => {
+    // alert('aaa')
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('Login');
+  };
+
   render() {
     return (
       <Container>
@@ -36,20 +43,24 @@ export class Profile extends Component {
               <Text>Setting</Text>
             </Body>
           </ListItem>
-          <ListItem icon style={{ marginBottom: 20 }}>
+          {/* <ListItem icon style={{ marginBottom: 20 }}>
             <Left>
               <Icon active name="sign-in" size={35} />
             </Left>
             <Body>
               <Text>Login</Text>
             </Body>
-          </ListItem>
+          </ListItem> */}
           <ListItem icon style={{ marginBottom: 20 }}>
             <Left>
-              <Icon active name="sign-out" size={35} />
+              <TouchableHighlight onPress={this.logout}>
+                <Icon active name="sign-out" size={35} />
+              </TouchableHighlight>
             </Left>
             <Body>
-              <Text>Logout</Text>
+              <TouchableHighlight onPress={this.logout}>
+                <Text>Logout</Text>
+              </TouchableHighlight>
             </Body>
           </ListItem>
 

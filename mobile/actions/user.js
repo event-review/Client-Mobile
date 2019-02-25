@@ -12,16 +12,16 @@ export function getDataUser(token) {
   }
 }
 
-export function getMyEventAction() {
-  return async dispatch => {
-    try {
-      const { data } = await api.get('/users/myevent')
-      dispatch({ type: 'getMyEventReducer', payload: data.events })
-    } catch (error) {
-      console.log(error.response)
-    }
-  }
-}
+// export function getMyEventAction() {
+//   return async dispatch => {
+//     try {
+//       const { data } = await api.get('/users/myevent')
+//       dispatch({ type: 'getMyEventReducer', payload: data.events })
+//     } catch (error) {
+//       console.log(error.response)
+//     }
+//   }
+// }
 
 export function joinEventAction(eventId) {
   return async dispatch => {
@@ -36,16 +36,16 @@ export function joinEventAction(eventId) {
 }
 
 export function registerAction(user) {
-  console.log('register',user)
+  console.log('register', user)
   return async dispatch => {
     try {
-      const {data} = await api({
+      const { data } = await api({
         method: 'post',
         url: '/users/signup',
         data: user,
       })
       console.log(data)
-      dispatch({type: 'registerReducer'})
+      dispatch({ type: 'registerReducer' })
     } catch (error) {
       console.log(error.response.data)
     }
@@ -69,10 +69,26 @@ export function registerAction(user) {
 //   }
 // }
 
-export async function logoutAction() {
-  try {
-    dispatch({type: 'logoutReducer'})
-  } catch (error) {
-    console.log(error.response)
+// export async function logoutAction() {
+//   try {
+//     dispatch({type: 'logoutReducer'})
+//   } catch (error) {
+//     console.log(error.response)
+//   }
+// }
+
+export function getMyEventAction(token) {
+  return async dispatch => {
+    try {
+      console.log('token my event', token)
+      const { data } = await api({
+        method: 'get',
+        url: '/users/myevent',
+        headers: { token }
+      })
+      dispatch({ type: 'getMyEventReducer', payload: data.events })
+    } catch (error) {
+      console.log(error.response.data)
+    }
   }
 }

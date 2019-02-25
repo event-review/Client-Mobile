@@ -6,10 +6,10 @@ import QRScreen from "../screens/TestQRCode";
 
 const SwitchNav = createSwitchNavigator({
   App: BottomNav,
-  // Home: Home,
+  QR: QRScreen,
   Login: LoginScreen,
 }, {
-    initialRouteName: 'App'
+    initialRouteName: 'Login'
   })
 
 export default createAppContainer(SwitchNav)

@@ -51,11 +51,11 @@ export default function (state = defaultState, action) {
         ...state,
         // events: payload
       })
-    case 'getMyEventReducer':
-      return ({
-        ...state,
-        myEvents: payload
-      })
+    // case 'getMyEventReducer':
+    //   return ({
+    //     ...state,
+    //     myEvents: payload
+    //   })
     default:
       return state
   }

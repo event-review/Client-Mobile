@@ -5,11 +5,14 @@ import { Container, Content, Button, Text, Card, CardItem, } from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import HTML from 'react-native-render-html'
 import api from '../actions/api'
+import QRCode from 'react-native-qrcode';
 
 export default class Detail extends Component {
   state = {
     modalVisibleMessage: false,
-    message: ''
+    message: '',
+    text: `http://localhost:3000/users/attend/${this.props.navigation.state.params.userId}/${this.props.navigation.state.params.data._id}`
+    // text: `https://www.facebook.com`
   }
 
   componentDidMount() {
@@ -17,7 +20,7 @@ export default class Detail extends Component {
   }
 
   render() {
-    let { name, date, place, price, status, imageUrl, promotorId, _id } = this.props.navigation.state.params.data
+    let { name, date, place, price } = this.props.navigation.state.params.data
 
     return (
       <Container>
@@ -27,8 +30,13 @@ export default class Detail extends Component {
             (name) && (
               <View >
                 <View style={{ margin: 15 }}>
-                  <Text>Your Ticket</Text>
-                  <Image source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Qr-4.png' }} style={styles.imagePoster} />
+                  <View style={{justifyContent: "center", alignItems: "center", marginBottom: 15}}>
+                    <QRCode
+                      value={this.state.text}
+                      size={300}
+                      bgColor='black'
+                      fgColor='white' />
+                  </View>
                   <Text>Scan This QR Code Before Enter The Venue</Text>
                 </View>
                 <HTML html={'<hr>'} />
@@ -50,17 +58,17 @@ export default class Detail extends Component {
                 <HTML html={'<hr>'} />
               </View>
             )}
-          <Text style={styles.title}>Location</Text>
+          {/* <Text style={styles.title}>Location</Text>
+          <Text style={styles.title}>{latitude}</Text>
+          <Text style={styles.title}>{longitude}</Text>
           <MapView
             style={styles.map}
-            initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
+            region={{
+              latitude: latitude,
+              longitude: longitude,
             }}
           />
-          <HTML html={'<hr>'} />
+          <HTML html={'<hr>'} /> */}
         </Content>
       </Container>
     )

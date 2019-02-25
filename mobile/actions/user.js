@@ -81,9 +81,9 @@ export function getMyEventAction(token) {
   return async dispatch => {
     try {
       console.log('token my event', token)
-      const { data } = await axios({
+      const { data } = await api({
         method: 'get',
-        url: 'http://192.168.43.142:3000/users/myevent',
+        url: '/users/myevent',
         headers: { token }
       })
       dispatch({ type: 'getMyEventReducer', payload: data.events })

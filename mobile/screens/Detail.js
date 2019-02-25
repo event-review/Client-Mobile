@@ -5,8 +5,10 @@ import { Container, Content, Button, Text, Card, CardItem, } from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import HTML from 'react-native-render-html'
 import api from '../actions/api'
+import { connect } from 'react-redux'
+import { getMyEventAction } from '../actions/user';
 
-export default class Detail extends Component {
+export class Detail extends Component {
   state = {
     modalVisibleMessage: false,
     message: ''
@@ -28,6 +30,7 @@ export default class Detail extends Component {
       this.setState({ message: data.message }, () => {
         this.setState({ modalVisibleMessage: true }, () => {
           setTimeout(() => {
+            this.props.getMyEvent(userToken)
             this.setState({
               modalVisibleMessage: false,
               message: '',
@@ -120,6 +123,18 @@ export default class Detail extends Component {
     )
   }
 }
+
+
+
+const mapStateToProps = (state) => ({
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  getMyEvent: (token) => dispatch(getMyEventAction(token))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Detail)
+
 
 const styles = StyleSheet.create({
   statusBar: {

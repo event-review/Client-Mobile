@@ -19,6 +19,15 @@ export class MyEventScreen extends Component {
     }
   }
 
+  getDetail = async (data) => {
+    try {
+      const userId = await AsyncStorage.getItem('userId');
+      this.props.navigation.navigate('DetailMyEvent', { data, userId: userId })
+    } catch(error) {
+      console.log(error.message)
+    }
+  }
+
   render() {
     return (
       <Container>
@@ -34,7 +43,7 @@ export class MyEventScreen extends Component {
               {
                 this.props.myEvent.map((e, i) => {
                   return (
-                    <TouchableHighlight key={i} onPress={() => this.props.navigation.navigate('DetailMyEvent', { data: e })}>
+                    <TouchableHighlight key={i} onPress={() => this.getDetail(e)}>
                       <View style={{ marginTop: 15, marginBottom: 15, flexDirection: "row" }}>
                         <Image source={{ uri: e.imageUrl }} style={{ width: 100, height: 100 }} />
                         <View style={{ flexDirection: "column", marginLeft: 10, alignItems: 'flex-start' }} >

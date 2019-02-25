@@ -110,18 +110,22 @@ export class LoginScreen extends Component {
 
   onClickButtonLogin = async () => {
     try {
+      console.log('aaaa')
       let { email, password } = this.state
       let user = { email, password }
       // this.props.login(user)
+      console.log(user)
       const { data } = await api({
         method: 'post',
         url: '/users/signin',
         data: user
       })
-      // console.log(data.token)
+      console.log('datalogin',data)
       await AsyncStorage.setItem('token', data.token)
+      await AsyncStorage.setItem('userId', data.userId)
       this.props.navigation.navigate('App')
     } catch (error) {
+      console.log('error', error)
       this.setState({message: error.response.data.message}, () => {
         this.setState({ modalVisibleMessage: true}, () => {
           setTimeout(() => {

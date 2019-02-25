@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { MapView, Constants } from 'expo'
+import { MapView, Constants, Marker } from 'expo'
 import { AsyncStorage, View, Image, StyleSheet, WebView, Modal, Dimensions } from 'react-native'
-import { Container, Content, Button, Text, Card, CardItem, } from 'native-base'
+import { Container, Content, Button, Text } from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import HTML from 'react-native-render-html'
 import api from '../actions/api'
@@ -53,7 +53,7 @@ export class Detail extends Component {
   }
 
   render() {
-    let { name, date, place, price, status, imageUrl, promotorId, _id } = this.props.navigation.state.params.data
+    let { name, date, place, price, status, imageUrl, promotorId, _id, latitude, longitude, description } = this.props.navigation.state.params.data
 
     return (
       <Container>
@@ -102,15 +102,25 @@ export class Detail extends Component {
               </View>
             )}
           <Text style={styles.title}>Location</Text>
+          <Text style={styles.title}>{latitude + longitude}</Text>
+          {/* <Text style={styles.title}>Location</Text> */}
           <MapView
             style={styles.map}
-            initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-          />
+            region={{
+              latitude: Number(latitude),
+              longitude: Number(longitude),
+              latitudeDelta: 0.009,
+              longitudeDelta: 0.01,
+            }}>
+            <MapView.Marker
+              coordinate={{
+                latitude: Number(latitude),
+                longitude: Number(longitude)
+              }}
+              title={"title"}
+              description={"description"}
+            />
+          </MapView>
           <HTML html={'<hr>'} />
           <Text style={styles.title}>Organizer</Text>
           <Text>{promotorId.name}</Text>

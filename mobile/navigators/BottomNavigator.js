@@ -43,7 +43,7 @@ const bottomNav = createBottomTabNavigator({
     },
   }
 }, {
-    initialRouteName: 'MyEvent'
+    initialRouteName: 'Home'
   })
 
 export default bottomNav

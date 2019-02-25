@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { MapView, Constants } from 'expo'
+import { Constants, MapView } from 'expo'
 import { AsyncStorage, View, Image, StyleSheet, WebView, Modal, Dimensions } from 'react-native'
 import { Container, Content, Button, Text, Card, CardItem, } from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import HTML from 'react-native-render-html'
 import api from '../actions/api'
 import QRCode from 'react-native-qrcode';
+// import MapView from 'react-native-maps'
 
 export default class Detail extends Component {
   state = {
@@ -20,7 +21,7 @@ export default class Detail extends Component {
   }
 
   render() {
-    let { name, date, place, price } = this.props.navigation.state.params.data
+    let { name, date, place, price, latitude, longitude } = this.props.navigation.state.params.data
 
     return (
       <Container>
@@ -58,17 +59,25 @@ export default class Detail extends Component {
                 <HTML html={'<hr>'} />
               </View>
             )}
-          {/* <Text style={styles.title}>Location</Text>
-          <Text style={styles.title}>{latitude}</Text>
-          <Text style={styles.title}>{longitude}</Text>
+          <Text style={styles.title}>Location</Text>
           <MapView
             style={styles.map}
             region={{
-              latitude: latitude,
-              longitude: longitude,
-            }}
-          />
-          <HTML html={'<hr>'} /> */}
+              latitude: Number(latitude),
+              longitude: Number(longitude),
+              latitudeDelta: 0.009,
+              longitudeDelta: 0.01,
+            }}>
+            <MapView.Marker
+              coordinate={{
+                latitude: Number(latitude),
+                longitude: Number(longitude)
+              }}
+              title={"title"}
+              description={"description"}
+            />
+          </MapView>
+          <HTML html={'<hr>'} />
         </Content>
       </Container>
     )

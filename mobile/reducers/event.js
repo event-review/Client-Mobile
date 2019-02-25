@@ -33,7 +33,7 @@ const defaultState = {
       promotor: { name: "Promotor 1" },
       imageUrl: 'https://i.pinimg.com/originals/e3/e3/11/e3e311f1f7a665f8b3877dcfa598cc90.png'
     },
-    
+
   ]
 }
 
@@ -42,10 +42,20 @@ export default function (state = defaultState, action) {
   const { type, payload } = action
   switch (type) {
     case 'getAllEventReducer':
-    return ({
-      ...state,
-      events: payload
-    })
+      return ({
+        ...state,
+        events: payload
+      })
+    case 'joinEventReducer':
+      return ({
+        ...state,
+        // events: payload
+      })
+    case 'getMyEventReducer':
+      return ({
+        ...state,
+        myEvents: payload
+      })
     default:
       return state
   }

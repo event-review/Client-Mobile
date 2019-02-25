@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native'
 
 const padding = 12
 const profileImageSize = 36
-const profileImageSize2 = 76
+const profileImageSize2 = 150
 
 export const styles = StyleSheet.create({
     container: {

@@ -12,3 +12,15 @@ export function getAllEventAction() {
     }
   }
 }
+
+export function joinEventAction(eventId) {
+  return async dispatch => {
+    try {
+      const { data } = await api.put('users/join'+eventId)
+      console.log('data event', data)
+      dispatch({ type: 'getAllEventReducer', payload: data.events })
+    } catch (error) {
+      console.log("error",error)
+    }
+  }
+}

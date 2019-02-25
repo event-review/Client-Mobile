@@ -3,9 +3,11 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { createBottomTabNavigator } from 'react-navigation'
 import Home from '../screens/Home'
 import StackHome from '../navigators/StackHome'
+import StackMyEvent from '../navigators/stackMyEvent'
 import Search from '../screens/Search'
 import Profile from '../screens/Profile'
 import Logout from '../screens/Logout'
+import MyEventScreen from '../screens/MyEvent';
 
 const bottomNav = createBottomTabNavigator({
   Home: {
@@ -24,6 +26,14 @@ const bottomNav = createBottomTabNavigator({
       ),
     },
   },
+  MyEvent: {
+    screen: StackMyEvent,
+    navigationOptions: {
+      tabBarIcon: ({ tintColor, focused }) => (
+        <Icon name="heart" size={25}/>
+      ),
+    },
+  },
   Profile: {
     screen: Profile,
     navigationOptions: {
@@ -33,7 +43,7 @@ const bottomNav = createBottomTabNavigator({
     },
   }
 }, {
-    initialRouteName: 'Home'
+    initialRouteName: 'MyEvent'
   })
 
 export default bottomNav

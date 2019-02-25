@@ -16,39 +16,6 @@ export default class Detail extends Component {
     console.log(this.props.navigation.state.params.data)
   }
 
-  join = async (eventId) => {
-    // alert(eventId)
-    try {
-      const userToken = await AsyncStorage.getItem('token');
-      const { data } = await api({
-        method: 'put',
-        url: '/users/join/' + eventId,
-        headers: { token: userToken }
-      })
-      this.setState({ message: data.message }, () => {
-        this.setState({ modalVisibleMessage: true }, () => {
-          setTimeout(() => {
-            this.setState({
-              modalVisibleMessage: false,
-              message: '',
-            })
-          }, 2000)
-        })
-      })
-    } catch (error) {
-      this.setState({ message: error.response.data.message }, () => {
-        this.setState({ modalVisibleMessage: true }, () => {
-          setTimeout(() => {
-            this.setState({
-              modalVisibleMessage: false,
-              message: '',
-            })
-          }, 2000)
-        })
-      })
-    }
-  }
-
   render() {
     let { name, date, place, price, status, imageUrl, promotorId, _id } = this.props.navigation.state.params.data
 
@@ -56,28 +23,17 @@ export default class Detail extends Component {
       <Container>
         <View style={styles.statusBar} />
         <Content style={{ margin: 10 }}>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            animationType="fade"
-            visible={this.state.modalVisibleMessage}
-            onRequestClose={() => this.setState({ modalVisibleMessage: false })}>
-            <View style={{ backgroundColor: 'rgba(240,240,240,0.8)', width: Dimensions.get('window').width, height: Dimensions.get('window').height }}>
-              <View style={{ ...styles.container, alignItems: "center", justifyContent: "center" }}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{this.state.message}</Text>
-              </View>
-            </View>
-          </Modal>
           {
             (name) && (
               <View >
                 <View style={{ margin: 15 }}>
-                  <Image source={{ uri: imageUrl }} style={styles.imagePoster} />
+                  <Text>Your Ticket</Text>
+                  <Image source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Qr-4.png' }} style={styles.imagePoster} />
+                  <Text>Scan This QR Code Before Enter The Venue</Text>
                 </View>
                 <HTML html={'<hr>'} />
                 <View style={styles.titlePoster}>
                   <Text style={{ fontSize: 30, fontWeight: 'bold' }}>{name}</Text>
-                  <Text>by {promotorId.name}</Text>
                 </View>
                 <View style={styles.description}>
                   <Icon name="calendar" size={25} style={styles.icon} />
@@ -86,10 +42,6 @@ export default class Detail extends Component {
                 <View style={styles.description}>
                   <Icon name="map-marker" size={25} style={styles.icon} />
                   <Text> {place}</Text>
-                </View>
-                <View style={styles.description}>
-                  <Icon name="check" size={25} style={styles.icon} />
-                  <Text> {status}</Text>
                 </View>
                 <View style={styles.description}>
                   <Icon name="ticket" size={25} style={styles.icon} />
@@ -109,12 +61,6 @@ export default class Detail extends Component {
             }}
           />
           <HTML html={'<hr>'} />
-          <Text style={styles.title}>Organizer</Text>
-          <Text>{promotorId.name}</Text>
-          <HTML html={'<br><hr>'} />
-          <Button style={{ backgroundColor: "#f75611", width: '100%', justifyContent: 'center' }} onPress={() => this.join(_id)}>
-            <Text>Join Event</Text>
-          </Button>
         </Content>
       </Container>
     )

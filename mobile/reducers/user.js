@@ -5,7 +5,7 @@ const defaultState = {
     dob: '28-03-1996',
     gender: 'Male'
   },
-  myEvent: [{name: '', data: '', place: ''}],
+  myEvent: [{ name: '', data: '', place: '' }],
   isLogin: true
 }
 
@@ -19,6 +19,7 @@ export default function (state = defaultState, action) {
         user: payload
       })
     case 'getMyEventReducer':
+      console.log('my event reducer.js', payload)
       return ({
         ...state,
         myEvent: payload

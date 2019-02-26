@@ -102,8 +102,6 @@ export class Detail extends Component {
               </View>
             )}
           <Text style={styles.title}>Location</Text>
-          <Text style={styles.title}>{latitude + longitude}</Text>
-          {/* <Text style={styles.title}>Location</Text> */}
           <MapView
             style={styles.map}
             region={{

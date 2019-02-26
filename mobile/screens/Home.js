@@ -25,6 +25,7 @@ export class HomeScreen extends Component {
   }
 
   render() {
+    let data0 = this.props.events[0]
     return (
       <Container >
         <View style={styles.statusBar} />
@@ -36,36 +37,40 @@ export class HomeScreen extends Component {
                 onRefresh={this._onRefresh}
               />
             }> */}
-            <View style={{ backgroundColor: '#f75611', borderRadius: 30, height: 250, marginTop: -15 }}>
-              <View style={{ margin: 30, marginTop: 50 }}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>What's good in</Text>
-                <Text style={{ fontSize: 40, fontWeight: 'bold', color: 'white' }}>Indonesia</Text>
-              </View>
+          <View style={{ backgroundColor: '#f75611', borderRadius: 30, height: 250, marginTop: -15 }}>
+            <View style={{ margin: 30, marginTop: 50 }}>
+              <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>What's good in</Text>
+              <Text style={{ fontSize: 40, fontWeight: 'bold', color: 'white' }}>Indonesia</Text>
             </View>
-            <View style={{ marginLeft: 20, marginRight: 20, marginTop: -100, backgroundColor: 'white', borderRadius: 10 }}>
-              <Image source={{ uri: 'https://static.vecteezy.com/system/resources/previews/000/202/201/non_2x/graduation-template-design-vector.jpg' }} style={{ width: '100%', height: 300, borderRadius: 15 }} />
+          </View>
+          <View style={{ marginLeft: 20, marginRight: 20, marginTop: -100, backgroundColor: 'white', borderRadius: 10 }}>
+            <TouchableHighlight onPress={() => this.props.navigation.navigate('Detail', { data: data0})}>
+              <>
+              <Image source={{ uri: data0.imageUrl }} style={{ width: '100%', height: 300, borderRadius: 15 }} />
               <View style={{ justifyContent: "center", alignItems: "center", marginBottom: 50 }}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Graduation Day</Text>
-                <Text><Icon name="calendar" size={15} /> March 1st 2019</Text>
-                <Text><Icon name="map-marker" size={15} /> Hacktiv8 Indonesia, Jakarta Selatan</Text>
+                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{data0.name}</Text>
+                <Text><Icon name="calendar" size={15} /> {data0.date.slice(0, 10)}</Text>
+                <Text><Icon name="map-marker" size={15} /> {data0.place}</Text>
               </View>
-              {
-                this.props.events.map((e, i) => {
-                  return (
-                    <TouchableHighlight key={i} onPress={() => this.props.navigation.navigate('Detail', { data: e })}>
-                      <View style={{ marginTop: 15, marginBottom: 15, flexDirection: "row" }}>
-                        <Image source={{ uri: e.imageUrl }} style={{ width: 100, height: 100 }} />
-                        <View style={{ flexDirection: "column", marginLeft: 10, alignItems: 'flex-start' }} >
-                          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{e.name}</Text>
-                          <Text><Icon name="calendar" size={15} /> {new Date(e.date).toLocaleDateString()}</Text>
-                          <Text><Icon name="map-marker" size={15} /> {e.place}</Text>
-                        </View>
+              </>
+            </TouchableHighlight>
+            {
+              this.props.events.slice(1).map((e, i) => {
+                return (
+                  <TouchableHighlight key={i} onPress={() => this.props.navigation.navigate('Detail', { data: e })}>
+                    <View style={{ marginTop: 15, marginBottom: 15, flexDirection: "row" }}>
+                      <Image source={{ uri: e.imageUrl }} style={{ width: 100, height: 100 }} />
+                      <View style={{ flexDirection: "column", marginLeft: 10, alignItems: 'flex-start' }} >
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{e.name}</Text>
+                        <Text><Icon name="calendar" size={15} /> {new Date(e.date).toLocaleDateString()}</Text>
+                        <Text><Icon name="map-marker" size={15} /> {e.place}</Text>
                       </View>
-                    </TouchableHighlight>
-                  )
-                })
-              }
-            </View>
+                    </View>
+                  </TouchableHighlight>
+                )
+              })
+            }
+          </View>
           {/* </ScrollView> */}
         </Content>
       </Container>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, Image , Button } from 'react-native'
+import { Text, View, Image } from 'react-native'
 import {styles} from '../styles'
 import { connect } from 'react-redux';
 
@@ -7,19 +7,15 @@ class DetailProfile extends Component {
   render() {
     const {user} = this.props
     return (
-      <View style={[styles.column, styles.padding]}>
-        <View style={styles.row}>
-            <Image style={styles.avatar2} source={{uri: user.photoURL}} />
-            <View style={{flexDirection: 'column'}}>
-            <Text style={styles.text}>{user.name}</Text>
-            <Text style={styles.text}>{user.email}</Text>
+        <View style={{...styles.container}}>
+            <Image style={{...styles.avatar2, marginBottom:30}} source={{uri: user.photoURL}} />
+            <View style={{ marginTop: 30, flexDirection: 'column'}}>
+            <Text style={styles.text}>Name : {user.name}</Text>
+            <Text style={styles.text}>Email : {user.email}</Text>
+            <Text style={styles.text}>Gender : {user.gender}</Text>
+            <Text style={styles.text}>Date Of Birth : {user.dob}</Text>
             </View>
         </View>
-        <Button
-         title="Sign Out"
-         onPress={() => alert('Masuk')}
-         />
-    </View>
     )
   }
 }

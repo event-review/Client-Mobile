@@ -33,11 +33,13 @@ export default function (state = defaultState, action) {
     case 'loginReducer':
       return ({
         ...state,
-        isLogin: true
+        isLogin: true,
+        user: payload
       })
     case 'registerReducer':
       return ({
         ...state,
+        user: payload
       })
     case 'logoutReducer':
       return ({

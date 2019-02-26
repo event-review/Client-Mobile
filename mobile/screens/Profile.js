@@ -11,7 +11,7 @@ export class Profile extends Component {
   logout = async () => {
     // alert('aaa')
     await AsyncStorage.clear();
-    this.props.navigation.navigate('Login');
+    this.props.navigation.navigate('Welcome');
   };
 
   render() {
@@ -63,8 +63,6 @@ export class Profile extends Component {
               </TouchableHighlight>
             </Body>
           </ListItem>
-
-          <HTML html={'<hr>'} />
         </Content>
       </Container>
     )

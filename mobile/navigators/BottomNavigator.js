@@ -8,6 +8,7 @@ import Search from '../screens/Search'
 import Profile from '../screens/Profile'
 import Logout from '../screens/Logout'
 import MyEventScreen from '../screens/MyEvent';
+import StackProfile from '../navigators/StackProfile'
 
 const bottomNav = createBottomTabNavigator({
   Home: {
@@ -35,7 +36,7 @@ const bottomNav = createBottomTabNavigator({
     },
   },
   Profile: {
-    screen: Profile,
+    screen: StackProfile,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
         <Icon name="ellipsis-v" size={25}/>

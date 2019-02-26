@@ -18,25 +18,24 @@ export class HomeScreen extends Component {
 
   _onRefresh = () => {
     this.setState({ refreshing: true });
-    alert('refresh')
-    setTimeout(() => {
+    this.props.getAllEvent().then(() => {
       this.setState({ refreshing: false });
-    }, 2000);
+    })
   }
 
   render() {
     let data0 = this.props.events[0]
     return (
       <Container >
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh}
+          />
+        }>
         <View style={styles.statusBar} />
         <Content >
-          {/* <ScrollView
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this._onRefresh}
-              />
-            }> */}
           <View style={{ backgroundColor: '#f75611', borderRadius: 30, height: 250, marginTop: -15 }}>
             <View style={{ margin: 30, marginTop: 50 }}>
               <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>What's good in</Text>
@@ -71,8 +70,8 @@ export class HomeScreen extends Component {
               })
             }
           </View>
-          {/* </ScrollView> */}
         </Content>
+      </ScrollView>
       </Container>
 
     )

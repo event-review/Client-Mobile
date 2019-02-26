@@ -19,7 +19,8 @@ export class Profile extends Component {
       <Container>
         <View style={styles.statusBar} />
         <Content style={{ marginTop: 30 }}>
-          <ListItem icon style={{ marginBottom: 20 }}>
+
+          <ListItem onPress={() => this.props.navigation.navigate('DetailProfile')} icon style={{ marginBottom: 20 }}>
             <Left>
               <Icon name="user" size={35} />
             </Left>
@@ -27,6 +28,7 @@ export class Profile extends Component {
               <Text>My Profile</Text>
             </Body>
           </ListItem>
+
           <ListItem icon style={{ marginBottom: 20 }}>
             <Left>
               <Icon active name="calendar" size={35} />

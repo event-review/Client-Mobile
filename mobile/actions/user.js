@@ -45,7 +45,7 @@ export function registerAction(user) {
         data: user,
       })
       console.log(data)
-      dispatch({ type: 'registerReducer' })
+      dispatch({ type: 'registerReducer', payload: data })
     } catch (error) {
       console.log(error.response.data)
     }

@@ -11,7 +11,7 @@ const SwitchNav = createSwitchNavigator({
   QR: QRScreen,
   Login: LoginScreen,
 }, {
-    initialRouteName: 'Welcome'
+    initialRouteName: 'App'
   })
 
 export default createAppContainer(SwitchNav)

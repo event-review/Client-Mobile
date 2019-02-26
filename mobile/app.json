@@ -10,9 +10,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/android-icon-96x96.png",
+    "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/SplashScreen.png",
+      "image": "./assets/EreviewdSplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,11 +23,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "ereviewd.review.ereviewd"
-    },
-    "android": {
-      "package": "ereviewd.review.ereviewd"
+      "supportsTablet": true
     }
   }
 }

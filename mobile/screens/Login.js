@@ -12,6 +12,7 @@ import getPermission from '../helpers/getPermission'
 import Fire from '../firebase/Fire'
 import { loginAction, registerAction } from '../actions/user';
 import api from '../actions/api'
+import Loader from "../components/Loader";
 
 const options = {
   allowsEditing: true,
@@ -37,7 +38,8 @@ export class LoginScreen extends Component {
     modalVisibleMessage: false,
     image: null,
 
-    message: ''
+    message: '',
+    loading: false
   }
 
 
@@ -68,17 +70,22 @@ export class LoginScreen extends Component {
 
   _onClickButtonRegister = async (imageURI) => {
     try {
+      this.setState({loading: true})
       let { name, email, password, chosenDate, gender } = this.state
       let user = { name, email, password, dob: chosenDate, gender }
       const profileURL = await Fire.shared.CreatePhoto(imageURI)
       let formData = new FormData()
       formData.append('data', JSON.stringify({ ...user, imageUrl: profileURL }))
+      
 
       const { data } = await api({
         method: 'post',
         url: '/users/signup',
         data: formData
       })
+
+      this.setState({loading: false})
+
       this.setState({message: data.message}, () => {
         this.setState({ modalVisibleMessage: true}, () => {
           setTimeout(() => {
@@ -90,13 +97,14 @@ export class LoginScreen extends Component {
               password: '',
               chosenDate: null,
               gender: undefined,
+              isRegister: false
             })
           }, 2000)
         })
       })
     } catch (error) {
 
-      this.setState({message: error.response.data.message}, () => {
+      this.setState({message: error.response.data.message, loading: false}, () => {
         this.setState({ modalVisibleMessage: true}, () => {
           setTimeout(() => {
             this.setState({ modalVisibleMessage: false, message: ''})
@@ -140,10 +148,11 @@ export class LoginScreen extends Component {
   }
 
   render() {
-    const { name, email, password, chosenDate, image } = this.state
+    const { name, email, password, chosenDate, image, loading } = this.state
     return (
       <ScrollView>
         <Container>
+          <Loader loading={loading}/>
           <Modal
             animationType="slide"
             transparent={true}
@@ -156,14 +165,14 @@ export class LoginScreen extends Component {
                   <Button
                     onPress={() => this._takePhoto()}
                     title="Take From Camera"
-                    color="#841584"
+                    color="#f75611"
                   />
                 </View>
                 <View style={{ marginBottom: 20 }}>
                   <Button
                     onPress={() => this._selectPhoto()}
                     title="Select From Gallery"
-                    color="#841584"
+                    color="#f75611"
                   />
                 </View>
               </View>
@@ -250,7 +259,7 @@ export class LoginScreen extends Component {
                   <Button
                     onPress={() => this.setState({ modalVisible: true })}
                     title="Select Photo"
-                    color="#841584"
+                    color="#f75611"
                   />
                 </View>
               }
@@ -261,12 +270,12 @@ export class LoginScreen extends Component {
                 <Button
                   onPress={() => this._onClickButtonRegister(image)}
                   title="Register"
-                  color="#841584"
+                  color="#f75611"
                 />
                 : <Button
                   onPress={() => this.onClickButtonLogin()}
                   title="Login"
-                  color="#841584"
+                  color="#f75611"
                 />
               }
             </View>
@@ -277,7 +286,7 @@ export class LoginScreen extends Component {
                   <Button
                     onPress={() => this.setState({ isRegister: false })}
                     title="Login"
-                    color="#841584"
+                    color="#f75611"
                   />
                 </View>
               ) : (
@@ -286,7 +295,7 @@ export class LoginScreen extends Component {
                     <Button
                       onPress={() => this.setState({ isRegister: true })}
                       title="Register"
-                      color="#841584"
+                      color="#f75611"
                     />
                   </View>
                 )

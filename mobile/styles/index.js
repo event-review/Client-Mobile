@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
       },
-      text: { fontWeight: '600' },
+      text: { fontWeight: '600', color: 'white', fontSize: 24 },
       subtitle: {
         opacity: 0.8,
       },

@@ -4,10 +4,12 @@ import axios from 'axios'
 export function getDataUser(token) {
   return async dispatch => {
     try {
-      const { data } = await api.get('/users', { header: token })
+      console.log('token', token)
+      const { data } = await api.get('/users', { headers: {token} })
+      console.log(data)
       dispatch({ type: 'getDataUserReducer', payload: data.user })
     } catch (error) {
-      console.log(error.response)
+      console.log(error.response.data)
     }
   }
 }
@@ -36,7 +38,7 @@ export function joinEventAction(eventId) {
 }
 
 export function registerAction(user) {
-  console.log('register', user)
+  // console.log('register', user)
   return async dispatch => {
     try {
       const { data } = await api({
@@ -44,7 +46,7 @@ export function registerAction(user) {
         url: '/users/signup',
         data: user,
       })
-      console.log(data)
+      // console.log(data)
       dispatch({ type: 'registerReducer', payload: data })
     } catch (error) {
       console.log(error.response.data)
@@ -80,7 +82,7 @@ export function registerAction(user) {
 export function getMyEventAction(token) {
   return async dispatch => {
     try {
-      console.log('token my event', token)
+      // console.log('token my event', token)
       const { data } = await api({
         method: 'get',
         url: '/users/myevent',

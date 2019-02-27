@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Image, TouchableHighlight, ImageBackground } from 'react-native'
+import { AsyncStorage, StyleSheet, Text, View, Image, TouchableHighlight, ImageBackground } from 'react-native'
 import { Button, Container, Content } from 'native-base'
 import { Constants } from 'expo';
 
 export default class WelcomeScreen extends Component {
 
   componentDidMount() {
-    // console.log(this.props.navigation)
+    this.checkLogin()
+  }
+
+  checkLogin = async () => {
+    const userToken = await AsyncStorage.getItem('token');
+    this.props.navigation.navigate(userToken ? 'App' : 'Welcome');
   }
 
   render() {

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Review",
+    "name": "Ereviewd",
     "slug": "mobile",
     "privacy": "public",
     "sdkVersion": "32.0.0",
@@ -10,7 +10,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/android-icon-96x96.png",
+    "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/SplashScreen.png",
       "resizeMode": "contain",
@@ -24,10 +24,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "ereviewd.review.ereviewd"
+      "bundleIdentifier": "ereviewd.firebaseapp.com.ereviewd.inc.ereviewd"
     },
     "android": {
-      "package": "ereviewd.review.ereviewd"
+      "package": "ereviewd.firebaseapp.com.ereviewd.inc.ereviewd"
     }
   }
 }

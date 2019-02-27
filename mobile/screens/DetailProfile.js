@@ -24,7 +24,7 @@ class DetailProfile extends Component {
     const { user } = this.props
     return (
       <View >
-        <ImageBackground source={{ uri: 'https://i.pinimg.com/736x/dd/8e/46/dd8e461d2b8cf2c277d8007aaf1c0147.jpg' }} style={{ width: '100%', height: '100%' }}>
+        <ImageBackground source={require('../assets/backgroundProfile.png')} style={{ width: '100%', height: '100%' }}>
           <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
             <Image style={{ ...styles.avatar2, marginBottom: 30 }} source={{ uri: user.imageUrl }} />
             <View style={{ marginTop: 30, flexDirection: 'column' }}>

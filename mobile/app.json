@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Review",
+    "name": "Ereviewd",
     "slug": "mobile",
     "privacy": "public",
     "sdkVersion": "32.0.0",
@@ -23,7 +23,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ereviewd.firebaseapp.com.ereviewd.inc.ereviewd"
+    },
+    "android": {
+      "package": "ereviewd.firebaseapp.com.ereviewd.inc.ereviewd"
     }
   }
 }

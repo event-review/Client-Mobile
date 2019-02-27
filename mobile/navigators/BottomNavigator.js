@@ -15,23 +15,23 @@ const bottomNav = createBottomTabNavigator({
     screen: StackHome,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
-        <Icon name="home" size={25}/>
+        <Icon name="home" size={25} style={{color: 'gray'}}/>
       ),
     },
   },
-  Search: {
-    screen: Search,
-    navigationOptions: {
-      tabBarIcon: ({ tintColor, focused }) => (
-        <Icon name="search" size={25}/>
-      ),
-    },
-  },
+  // Search: {
+  //   screen: Search,
+  //   navigationOptions: {
+  //     tabBarIcon: ({ tintColor, focused }) => (
+  //       <Icon name="search" size={25}/>
+  //     ),
+  //   },
+  // },
   MyEvent: {
     screen: StackMyEvent,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
-        <Icon name="heart" size={25}/>
+        <Icon name="heart" size={25} style={{color: 'gray'}}/>
       ),
     },
   },
@@ -39,9 +39,9 @@ const bottomNav = createBottomTabNavigator({
     screen: StackProfile,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
-        <Icon name="ellipsis-v" size={25}/>
-      ),
-    },
+        <Icon name="ellipsis-v" size={25} style={{color: 'gray'}}/>
+      )
+    }
   }
 }, {
     initialRouteName: 'Home'

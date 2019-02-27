@@ -43,12 +43,12 @@ export class HomeScreen extends Component {
             </View>
           </View>
           <View style={{ marginLeft: 20, marginRight: 20, marginTop: -100, backgroundColor: 'white', borderRadius: 10 }}>
-            <TouchableHighlight onPress={() => this.props.navigation.navigate('Detail', { data: data0})}>
+            <TouchableHighlight underlayColor='rgba(245,245,245,1)' onPress={() => this.props.navigation.navigate('Detail', { data: data0})}>
               <>
               <Image source={{ uri: data0.imageUrl }} style={{ width: '100%', height: 300, borderRadius: 15 }} />
               <View style={{ justifyContent: "center", alignItems: "center", marginBottom: 50 }}>
                 <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{data0.name}</Text>
-                <Text><Icon name="calendar" size={15} /> {data0.date.slice(0, 10)}</Text>
+                <Text><Icon name="calendar" size={15} /> {new Date(data0.date).toDateString()}</Text>
                 <Text><Icon name="map-marker" size={15} /> {data0.place}</Text>
               </View>
               </>
@@ -56,12 +56,12 @@ export class HomeScreen extends Component {
             {
               this.props.events.slice(1).map((e, i) => {
                 return (
-                  <TouchableHighlight key={i} onPress={() => this.props.navigation.navigate('Detail', { data: e })}>
+                  <TouchableHighlight underlayColor='rgba(245,245,245,1)' key={i} onPress={() => this.props.navigation.navigate('Detail', { data: e })}>
                     <View style={{ marginTop: 15, marginBottom: 15, flexDirection: "row" }}>
                       <Image source={{ uri: e.imageUrl }} style={{ width: 100, height: 100 }} />
                       <View style={{ flexDirection: "column", marginLeft: 10, alignItems: 'flex-start' }} >
                         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{e.name}</Text>
-                        <Text><Icon name="calendar" size={15} /> {new Date(e.date).toLocaleDateString()}</Text>
+                        <Text><Icon name="calendar" size={15} /> {new Date(e.date).toDateString()}</Text>
                         <Text><Icon name="map-marker" size={15} /> {e.place}</Text>
                       </View>
                     </View>

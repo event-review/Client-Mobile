@@ -17,7 +17,7 @@ export default class Detail extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.navigation.state.params.data)
+    // console.log(this.props.navigation.state.params.data)
   }
 
   render() {
@@ -46,7 +46,7 @@ export default class Detail extends Component {
                 </View>
                 <View style={styles.description}>
                   <Icon name="calendar" size={25} style={styles.icon} />
-                  <Text> {new Date(date).toLocaleDateString()}</Text>
+                  <Text> {new Date(date).toDateString()}</Text>
                 </View>
                 <View style={styles.description}>
                   <Icon name="map-marker" size={25} style={styles.icon} />

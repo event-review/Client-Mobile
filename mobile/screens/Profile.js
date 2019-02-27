@@ -45,24 +45,12 @@ export class Profile extends Component {
               <Text>Setting</Text>
             </Body>
           </ListItem>
-          {/* <ListItem icon style={{ marginBottom: 20 }}>
+          <ListItem icon style={{ marginBottom: 20 }} onPress={this.logout}>
             <Left>
-              <Icon active name="sign-in" size={35} />
+              <Icon active name="sign-out" size={35} />
             </Left>
             <Body>
-              <Text>Login</Text>
-            </Body>
-          </ListItem> */}
-          <ListItem icon style={{ marginBottom: 20 }}>
-            <Left>
-              <TouchableHighlight onPress={this.logout}>
-                <Icon active name="sign-out" size={35} />
-              </TouchableHighlight>
-            </Left>
-            <Body>
-              <TouchableHighlight onPress={this.logout}>
-                <Text>Logout</Text>
-              </TouchableHighlight>
+              <Text>Logout</Text>
             </Body>
           </ListItem>
         </Content>
